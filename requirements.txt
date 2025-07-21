@@ -1,0 +1,23 @@
+# Core ML packages
+torch>=2.0.0
+transformers>=4.30.0
+datasets>=2.12.0
+accelerate>=0.20.0
+
+# Quantization and fine-tuning
+bitsandbytes>=0.40.0
+peft>=0.4.0
+trl>=0.5.0
+
+# Unsloth for efficient training
+unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git
+
+# Utilities
+numpy>=1.21.0
+pillow>=8.0.0
+matplotlib>=3.3.0
+tqdm>=4.60.0
+pyyaml>=6.0.0
+
+# Optional: vLLM for inference
+# vllm>=0.2.0
