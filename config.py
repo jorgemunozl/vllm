@@ -1,8 +1,6 @@
 from typing import Dict, Any, Optional
 from dataclasses import dataclass, asdict
 from trl import SFTConfig
-from constants import model, tokenizer
-from dataset import trainDataSet
 from unsloth.trainer import UnslothVisionDataCollator
 from unsloth import is_bf16_supported
 import os
@@ -29,10 +27,15 @@ class LoraConfig:
 @dataclass
 class TrainingConfig:
     """Training configuration parameters"""
-    model = model
-    tokenizer = tokenizer
-    data_collator = UnslothVisionDataCollator(model, tokenizer)  # Must use!
-    train_dataset = trainDataSet
+    def __post_init__(self):
+        # Import here to avoid circular imports
+        from constants import model, tokenizer
+        from dataset import trainDataSet
+        
+        self.model = model
+        self.tokenizer = tokenizer
+        self.data_collator = UnslothVisionDataCollator(model, tokenizer)  # Must use!
+        self.train_dataset = trainDataSet
     args = SFTConfig(
         per_device_train_batch_size=2,
         gradient_accumulation_steps=4,
@@ -75,16 +78,17 @@ class ConfigManager:
     def __init__(self, config_path: Optional[str] = None):
         self.config_path = config_path or "config.yaml"
     
-    def save_config(self, model_config: ModelConfig,
+    def save_config(self, lora_config: LoraConfig,
                     training_config: TrainingConfig,
                     inference_config: InferenceConfig):
         """Save configuration to file"""
         config_dict = {
-            "model": asdict(model_config),
+            "lora": asdict(lora_config),
             "training": asdict(training_config),
             "inference": asdict(inference_config)
         }
         
+        import yaml
         with open(self.config_path, 'w') as f:
             yaml.dump(config_dict, f, default_flow_style=False)
     
@@ -92,13 +96,14 @@ class ConfigManager:
         """Load configuration from file"""
         if not os.path.exists(self.config_path):
             # Return default configs if file doesn't exist
-            return ModelConfig(), TrainingConfig(), InferenceConfig()
+            return LoraConfig(), TrainingConfig(), InferenceConfig()
         
+        import yaml
         with open(self.config_path, 'r') as f:
             config_dict = yaml.safe_load(f)
         
-        model_config = ModelConfig(**config_dict.get("model", {}))
+        lora_config = LoraConfig(**config_dict.get("lora", {}))
         training_config = TrainingConfig(**config_dict.get("training", {}))
         inference_config = InferenceConfig(**config_dict.get("inference", {}))
         
-        return model_config, training_config, inference_config
+        return lora_config, training_config, inference_config

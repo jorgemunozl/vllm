@@ -7,7 +7,6 @@ from constants import instrunctionInference
 image = testDataSet[0]["image"]  # This is a PIL.Image object
 
 instruction = instrunctionInference
-instruction = "You are an expert reading and understanding flowcharts"
 messages = [
     {"role": "user", "content": [
         {"type": "image"},
