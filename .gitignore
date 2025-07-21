@@ -54,7 +54,7 @@ results/
 models/
 checkpoints/
 *.bin
-*.safetensors
+
 
 # Data
 data/
