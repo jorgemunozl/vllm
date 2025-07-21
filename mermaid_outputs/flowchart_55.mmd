@@ -1,0 +1,21 @@
+```mermaid
+flowchart TD
+    A((Start)) --> B[Input: 'n', the position of the smart number to find.]
+    B --> C[Initialize 'MAX' to 3000.]
+    C --> D[Initialize 'primes' as a list of zeros with length 'MAX'.]
+    D --> E[Initialize'result' as an empty list.]
+    E --> F[Loop 'i' from 2 to 'MAX - 1'.]
+    F --> G{Is 'primes[]' equal to []?}
+    G --> H[Set 'primes[]' to 1]
+    H --> I[Initialize 'j' to 1]
+    I --> J[Loop while 'j' is less than 'MAX'.]
+    J --> K{Is '(primes[] + 3)' equal to 0?]
+    K --> L[Append 'j' to'result'.]
+    L --> M[Increment 'j' by 1]
+    M --> N[Sort the'result' list]
+    N --> O{Is 'n - 1' within the bounds of'result'?]
+    O --> P[Return'result[n - 1]']
+    P --> Q[Handle the error or return an invalid value.]
+    Q --> R[(End)]
+    R --> S[Return'result[n - 1]']
+```
