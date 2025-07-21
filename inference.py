@@ -3,8 +3,9 @@ from constants import model, tokenizer
 from dataset import testDataSet
 from constants import instrunctionInference
 
+# Extract the PIL Image from the dataset dictionary
+image = testDataSet[0]["image"]  # This is a PIL.Image object
 
-image = testDataSet[0]
 instruction = instrunctionInference
 instruction = "You are an expert reading and understanding flowcharts"
 messages = [

@@ -9,4 +9,4 @@ model, tokenizer = FastVisionModel.from_pretrained(
 )  # Model Base !
 
 model = FastVisionModel.get_peft_model(model, LoraConfig)
-instrunctionInference = "prom"
+instrunctionInference = "You are an expert reading and understanding flowcharts"
