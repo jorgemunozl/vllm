@@ -6,16 +6,14 @@ import os
 import torch
 import gc
 
-# Create output directory if it doesn't exist
 os.makedirs("mermaid_outputs", exist_ok=True)
 
-# Clear GPU cache
-torch.cuda.empty_cache()
+torch.cuda.empty_cache() # Relevant to window context? 
 gc.collect()
 
-# Loop through images 31 to 70 from the dataset
-start_index = 30  # Starting from image 31 (0-indexed)
-end_index = 70    # Up to image 70
+start_index = 30  
+end_index = 70   
+
 num_images = min(end_index, len(testDataSet)) - start_index
 print(f"Processing images {start_index + 1} to {min(end_index, len(testDataSet))} from the dataset...")
 
@@ -24,13 +22,11 @@ for i in range(start_index, min(end_index, len(testDataSet))):
     print(f"\n{'='*60}")
     print(f"Processing image {current_image_num}/{len(testDataSet)} (batch: {current_image_num - start_index}/{num_images})")
     print('='*60)
-    
-    # Clear cache before each inference
+
+    # Clear cache before each inference <-----
     torch.cuda.empty_cache()
-    
     # Extract the PIL Image from the dataset dictionary
     image = testDataSet[i]["image"]  # This is a PIL.Image object
-    
     instruction = instrunctionInference
     messages = [
         {"role": "user", "content": [

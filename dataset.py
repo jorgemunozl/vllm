@@ -3,8 +3,8 @@ from PIL import Image
 import os
 
 dataSet0 = "MananSuri27/Flowchart2Mermaid"
-# dataSet1 = "sroecker/mermaid-flowchart-transformer-moondream-caption"
-# dataSet2 = "rakitha/mermaid-flowchart-transformer"
+# dataSet1 = "sroecker/mermaid-flowchart-transformer-moondream-caption" <--- Future Improve
+# dataSet2 = "rakitha/mermaid-flowchart-transformer" <--- Future
 
 ds = load_dataset(dataSet0)
 

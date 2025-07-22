@@ -1,4 +1,3 @@
-## Playing with VLLM
-Yeah get excited
+## VLLMS TRAINED ON MERMAID
 
-CookieCutter Templates Used!
+Use -> MananSuri27/Flowchart2Mermaid
