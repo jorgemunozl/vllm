@@ -4,18 +4,22 @@ import os
 MODEL_NAME = "jorgemunozl/flowchart2mermaid"
 LOCAL_MODEL_PATH = "/home/jorge/project/githubProjects/vllm"
 
-def upload_model():
+def upload_model(files_to_update=None, update_mode=False):
     api = HfApi()
-    try:
-        create_repo(
-            MODEL_NAME, 
-            exist_ok=True,
-            private=True  # Set to False for public repository
-        )
-        print(f"✅ Private repository created: https://huggingface.co/{MODEL_NAME}")
-    except Exception as e:
-        print(f"Repository might already exist: {e}")
-    files_to_upload = [
+    
+    if not update_mode:
+        try:
+            create_repo(
+                MODEL_NAME, 
+                exist_ok=True,
+                private=True  # Set to False for public repository
+            )
+            print(f"✅ Private repository created: https://huggingface.co/{MODEL_NAME}")
+        except Exception as e:
+            print(f"Repository might already exist: {e}")
+    
+    # Default files or custom list
+    files_to_upload = files_to_update or [
         "adapter_model.safetensors",  
         "adapter_config.json",                  
         "README.md"                 
@@ -41,4 +45,11 @@ def upload_model():
 
 
 if __name__ == "__main__":
-    upload_model()
+    # Full upload (first time)
+    # upload_model()
+    
+    # Update specific files only
+    upload_model(files_to_update=["README.md"], update_mode=True)
+    
+    # Update model files
+    # upload_model(files_to_update=["adapter_model.safetensors", "adapter_config.json"], update_mode=True)

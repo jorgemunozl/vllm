@@ -33,4 +33,4 @@ flowchart TD
     E --> F
 ```
 
-Provide only the Mermaid code without any additional explanation
+Provide only the Mermaid code without any additional explanation.

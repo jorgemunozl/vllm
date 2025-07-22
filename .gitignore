@@ -37,6 +37,10 @@ ipython_config.py
 # pyenv
 .python-version
 
+# THIS PROJECT
+.safetensors
+noFinneTuneOutputs
+
 # Environments
 .env
 .venv
