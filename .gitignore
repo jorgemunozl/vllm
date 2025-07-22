@@ -74,3 +74,6 @@ Thumbs.db
 
 # Git
 .git/
+# Large model files
+*.safetensors
+adapter_model.safetensors
