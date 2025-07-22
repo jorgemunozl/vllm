@@ -38,8 +38,8 @@ ipython_config.py
 .python-version
 
 # THIS PROJECT
-.safetensors
-noFinneTuneOutputs
+*.safetensors
+noFinneTuneOutputs/
 
 # Environments
 .env
