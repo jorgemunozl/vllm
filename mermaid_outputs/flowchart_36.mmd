@@ -1,0 +1,26 @@
+```mermaid
+flowchart TD
+    A((Start)) --> B[Collect relay specification]
+    B --> C[Search for relay data sheets]
+    C --> D[Check for pin configuration and ratings]
+    D --> E[Inspect relay for visible damage]
+    E --> F{Is there visible damage on the relay?}
+    F --> G{Relay may be damaged}
+    G --> H[Ensure control voltage at coil terminals]
+    G --> I{Is control voltage present at the coil terminals?}
+    I --> J{Check if relay's LED indicator is on}
+    J --> K{Is the relay's LED indicator on?}
+    K --> L{Is the electrical work compliant with local laws?}
+    L --> M{Relay likely in good condition}
+    M --> N[Relay may be faulty]
+    N --> O{Disconnect all power sources}
+    O --> P{Be mindful of capacitor}
+    P --> Q{Have all power sources been disconnected safely?}
+    Q --> R{Check local laws and safety regulations}
+    R --> S((End))
+    R --> T{Does the individual feel safe performing the electrical work?}
+    T --> U{Leave electrical work to professionals}
+    T --> V{Seek professional assistance or ensure compliance}
+    V --> W{Perform electrical work as per safety guidelines}
+    W --> X((End))
+```
