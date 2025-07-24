@@ -36,4 +36,4 @@ model = model.merge_and_unload()
 torch.cuda.empty_cache()
 
 if __name__ == "__main__":
-    generateMermaids(testDataSet, tokenizer, "output", model, 47, 66)
+    generateMermaids(testDataSet, tokenizer, "output", model, 4, 5)
