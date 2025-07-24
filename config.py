@@ -58,9 +58,8 @@ class LoraConfig:
 @dataclass
 class InferenceConfig:
     max_new_tokens: int = 600
-    temperature: float = 0.0
-    use_cache = True
-    min_p = 0.1
+    do_sample: bool = False  # Use greedy decoding
+    use_cache: bool = True
 
 
 inference_config = InferenceConfig()
