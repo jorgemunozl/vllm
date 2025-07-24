@@ -40,6 +40,10 @@ ipython_config.py
 # THIS PROJECT
 *.safetensors
 noFinneTuneOutputs/
+output/
+groundT/
+parse.py
+FT/
 
 # Environments
 .env

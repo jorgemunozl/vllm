@@ -7,3 +7,9 @@ dataSet0 = "MananSuri27/Flowchart2Mermaid"
 ds = load_dataset(dataSet0)
 trainDataSet = ds['train']
 testDataSet = ds['validation']
+
+
+for i in range(66):
+    content = testDataSet[i]["text"]
+    with open(f"groundT/{i}.md", "w") as f:
+        f.write(content)
