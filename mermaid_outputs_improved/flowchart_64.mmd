@@ -1,0 +1,29 @@
+```mermaid
+flowchart TD
+A((Start)) --> B[Open Developer Tools]
+B --> C[Press 'Ctrl+Shift+l' or 'Command+Shift+l']
+C --> D[Inspect the Image]
+D --> E{Inspect' Option Available?}
+E --> F[Select 'Inspect']
+F --> G[Navigation Through Code]
+G --> H{Correct Image Section Found?}
+H --> I[Link Leads to Desired Image?]
+I --> J[Right-click and Copy Link Address]
+J --> K{Image URL Copied to Clipboard?}
+K --> L[Image Loads in New Tab?]
+L --> M[Image URL is Correct?]
+M --> N[Image Loads in New Tab?]
+N --> O{Image URL is Correct?}
+O --> P[URL is Not Correct Image Address]
+P --> Q[Hover Over Link]
+Q --> R[Link Leads to Desired Image?]
+R --> S{Link Leads to Desired Image?}
+S --> T[Image URL is Correct]
+T --> U[Image Loads in New Tab?]
+U --> V{Image URL is Correct?}
+V --> W{Image URL is Correct?}
+W --> X[Image Loads in New Tab?]
+X --> Y[Image Loads in New Tab?]
+Y --> Z[Image URL is Correct?]
+Z --> ((End))
+```

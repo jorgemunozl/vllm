@@ -39,7 +39,7 @@ ipython_config.py
 
 # THIS PROJECT
 *.safetensors
-noFinneTuneOutputs/
+NFT/
 output/
 groundT/
 parse.py

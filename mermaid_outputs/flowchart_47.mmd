@@ -1,0 +1,23 @@
+```mermaid
+flowchart TD
+    A((Start)) --> B[Receive list1 as the first sequence]
+    B --> C{Receive list2 as the second sequence}
+    C --> D[Set c to 0 for counting elements in list1]
+    D --> E[Set d to 0 for counting elements in list2]
+    E --> F[For each element i in list1: Increment c by 1]
+    F --> G{For each element i in list2: Increment d by 1}
+    G --> H[For i in range 0 to c]
+    H --> I[For j in range 0 to c]
+    I --> J[Check if list1[i] equals list2[j]]
+    J --> K{Return 1 (True, indicating an overlap)}
+    K --> L((End))
+    I --> L
+    G --> L
+    H --> L
+    F --> L
+    E --> L
+    C --> L
+    B --> L
+    A --> L
+    D --> L
+```

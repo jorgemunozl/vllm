@@ -1,0 +1,21 @@
+```mermaid
+flowchart TD
+Start((Start)) --> A[Accept sorted array 'A' and number 'x']
+A --> B[Initialize 'left' to 0 and 'right' to length of 'A' - 1]
+B --> C[Initialize'result' to -]
+C --> D{While 'left' <= 'right'?}
+D --> E[/"Output'result'"/]
+E --> F[Calculate'mid' as (left + right) / 2]
+F --> G[Is 'x' == 'A[mid]'?]
+G --> H{Set'result' to'mid' + 1?}
+H --> I[Set 'left' to'mid' + 1]
+G -- Yes --> I
+G -- No --> J[Is 'x' < 'A[mid]'?]
+J --> K[Set 'right' to'mid' - 1]
+K --> L{Set 'left' to'mid' + 1?}
+L --> N((End))
+J -- Yes --> N
+J -- No --> M[Set 'right' to'mid' - 1]
+M --> N
+D --> N
+```

@@ -1,0 +1,21 @@
+```
+flowchart TD
+    A((Start)) --> B[Prepare the Stuffed Animal]
+    B --> C{Gather Materials}
+    C --> D[Insert the Jar]
+    D --> E[Attach Fabric to Jar]
+    E --> F{Is the lid attached?}
+    F -- No --> G[Attach the Lid]
+    F -- Yes --> H{Is the head attached?}
+    H -- No --> I[Attach the Head to the Lid]
+    H -- Yes --> J{Finalize the Stashimal}
+    J --> K[Complete Stashimal]
+    K --> L[Create night light feature]
+    L --> M[Insert Glow Stick]
+    M --> N[Insert Glow Stick]
+    N --> O[End]
+    O --> G
+    O --> I
+    O --> J
+    O --> K
+```
