@@ -1,3 +1,4 @@
+
 from unsloth import FastVisionModel
 import torch
 from datasets import load_dataset
@@ -5,40 +6,31 @@ import os
 import gc
 
 
-model, tokenizer = FastVisionModel.from_pretrained(
-    "unsloth/Llama-3.2-11B-Vision-Instruct",
-    load_in_4bit = True,
-    use_gradient_checkpointing = "unsloth", # True or "unsloth" for long context
-)
+def clear_cuda():
+    """Clear all CUDA memory and variables"""
+    # Delete any existing models/variables if they exist
+    import gc
+    if 'model' in globals():
+        del globals()['model']
+    if 'tokenizer' in globals():
+        del globals()['tokenizer']
+    # Run garbage collection
+    gc.collect()
+    # Clear CUDA cache
+    torch.cuda.empty_cache()
+    torch.cuda.synchronize()
+    print("Cleared all CUDA memory")
 
-model = FastVisionModel.get_peft_model(
-    model,
-    finetune_vision_layers     = True, # False if not finetuning vision layers
-    finetune_language_layers   = True, # False if not finetuning language layers
-    finetune_attention_modules = True, # False if not finetuning attention layers
-    finetune_mlp_modules       = True, # False if not finetuning MLP layers
 
-    r = 16,           # The larger, the higher the accuracy, but might overfit
-    lora_alpha = 16,  # Recommended alpha == r at least
-    lora_dropout = 0,
-    bias = "none",
-    random_state = 3407,
-    use_rslora = False,  # We support rank stabilized LoRA
-    loftq_config = None, # And LoftQ
-    # target_modules = "all-linear", # Optional now! Can specify a list if needed
-)
-ds = load_dataset("MananSuri27/Flowchart2Mermaid")
-
-FastVisionModel.for_inference(model)
-instruction = """Analyze the flowchart image and convert it to Mermaid syntax. Follow these requirements strictly:
-
+instruction = """
+Analyze the flowchart image and convert it to Mermaid syntax. Follow these requirements strictly:
 1. Use proper Mermaid flowchart syntax starting with 'flowchart TD' (top-down) or 'flowchart LR' (left-right)
 2. Identify all nodes/boxes and give them appropriate IDs (A, B, C, etc.)
 3. Include all decision diamonds with proper syntax using {condition?}
 4. Add all connecting arrows and labels using ONLY '-->' (not '-- >' or other variations)
 5. Use appropriate node shapes:
    - [Text] for process boxes
-   - {Text} for decision diamonds  
+   - {Text} for decision diamonds
    - ((Text)) for start/end circles
    - [Text] for regular rectangles
    - [/"Text"/] for data input/output parallelograms
@@ -55,7 +47,7 @@ IMPORTANT MERMAID SYNTAX RULES:
 - Process nodes use square brackets: ["Do something"]
 - No spaces in arrow syntax: A --> B (not A -- > B)
 - Always use quoting to write text. A["Process"]
-- The end is always follow by a ID. K((End)) 
+- The end is always follow by a ID. K((End))
 
 EXAMPLE:
 flowchart TD
@@ -70,6 +62,16 @@ flowchart TD
 
 Provide only the Mermaid code without any additional explanation."""
 
+
+model, tokenizer = FastVisionModel.from_pretrained(
+    "unsloth/Llama-3.2-11B-Vision-Instruct",
+    load_in_4bit = True, # Use 4bit to reduce memory use. False for 16bit LoRA.
+    use_gradient_checkpointing = "unsloth", # True or "unsloth" for long context
+)
+
+model = PeftModel.from_pretrained(model, "jorgemunozl/flowchart2mermaid")
+model = model.merge_and_unload()
+ds = load_dataset("MananSuri27/Flowchart2Mermaid")
 messages = [
     {"role": "user", "content": [
         {"type": "image"},
@@ -77,7 +79,7 @@ messages = [
     ]}
 ]
 input_text = tokenizer.apply_chat_template(messages, add_generation_prompt = True)
-
+FastVisionModel.for_inference(model)
 for i in range(60):
     print(f" -> Image {i}")
     image = ds["validation"][i]["image"]
@@ -90,6 +92,7 @@ for i in range(60):
     res = model.generate(**inputs, max_new_tokens = 2000,
                    use_cache = False, temperature = 0.1, min_p = 0.1)
     generated_text = tokenizer.decode(res[0],skip_special_tokens=True)
+    # Extract only the assistant's response (everything after the last assistant token)
     if "<|start_header_id|>assistant<|end_header_id|>" in generated_text:
         assistant_response = generated_text.split("<|start_header_id|>assistant<|end_header_id|>")[-1]
     elif "assistant" in generated_text:
@@ -106,4 +109,3 @@ for i in range(60):
     del inputs, res
     torch.cuda.empty_cache()
     gc.collect()
-
