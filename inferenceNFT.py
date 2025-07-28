@@ -102,7 +102,7 @@ for i in range(20,60):
     torch.cuda.synchronize()
     elapsed_time_ms = start_event.elapsed_time(end_event)
     total_time += elapsed_time_ms / 1000
-    
+    print("Elapsed Time: ",elapsed_time_ms/1000)
     print(f"\nTotal inference time for 60 images: {total_time:.2f} seconds")
     print(f"Average inference time per image: {total_time / 60:.2f} seconds")
 
@@ -118,6 +118,7 @@ for i in range(20,60):
         assistant_response = assistant_response[:-9].strip()
     print(assistant_response)
     os.makedirs("NEWBATCHNFT",exist_ok=True)
+    print("-> TIME / STR",elapsed_time_ms/len(assistant_response)/1000)
     with open(f"NEWBATCHNFT/{i}.md","w") as f:
         f.write(assistant_response)
     del inputs, res

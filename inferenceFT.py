@@ -116,6 +116,7 @@ for i in range(1,60):
     os.makedirs("FTBATCH",exist_ok=True)
     with open(f"FTBATCH/{i}.md","w") as f:
         f.write(assistant_response)
+    print("-> TIME / STR",elapsed_time_ms/len(assistant_response)/1000)s
     del inputs, res
     torch.cuda.empty_cache()
     gc.collect()
