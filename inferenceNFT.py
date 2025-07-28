@@ -91,6 +91,9 @@ for i in range(60):
     add_special_tokens = False,
     return_tensors = "pt",
     ).to("cuda")
+    start_event = torch.cuda.Event(enable_timing=True)
+    end_event = torch.cuda.Event(enable_timing=True)
+    
     res = model.generate(**inputs, max_new_tokens = 2000,
                    use_cache = False, temperature = 0.1, min_p = 0.1)
     generated_text = tokenizer.decode(res[0],skip_special_tokens=True)
