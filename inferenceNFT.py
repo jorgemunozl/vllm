@@ -30,7 +30,8 @@ model = FastVisionModel.get_peft_model(
     loftq_config = None, # And LoftQ
     # target_modules = "all-linear", # Optional now! Can specify a list if needed
 )
-ds = load_dataset("MananSuri27/Flowchart2Mermaid")
+
+ds = load_dataset("sroecker/mermaid-flowchart-transformer-moondream-caption")
 
 FastVisionModel.for_inference(model)
 instruction = """Analyze the flowchart image and convert it to Mermaid syntax. Follow these requirements strictly:
@@ -83,7 +84,7 @@ input_text = tokenizer.apply_chat_template(messages, add_generation_prompt = Tru
 
 for i in range(60):
     print(f" -> Image {i}")
-    image = ds["validation"][i]["image"]
+    image = ds["train"][i]["image"]
     inputs = tokenizer(
     image,
     input_text,
