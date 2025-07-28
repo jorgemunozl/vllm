@@ -1,12 +1,13 @@
-from unsloth import FastVisionModel # FastLanguageModel for LLMs
+from unsloth import FastVisionModel
 import torch
 from datasets import load_dataset
 import os
 import gc
 
+
 model, tokenizer = FastVisionModel.from_pretrained(
     "unsloth/Llama-3.2-11B-Vision-Instruct",
-    load_in_4bit = True, # Use 4bit to reduce memory use. False for 16bit LoRA.
+    load_in_4bit = True,
     use_gradient_checkpointing = "unsloth", # True or "unsloth" for long context
 )
 
