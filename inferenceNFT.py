@@ -104,8 +104,8 @@ for i in range(60):
     if assistant_response.endswith("<|eot_id|>"):
         assistant_response = assistant_response[:-9].strip()
     print(assistant_response)
-    os.makedirs("NFT",exist_ok=True)
-    with open(f"NFT/{i}.md","w") as f:
+    os.makedirs("FT",exist_ok=True)
+    with open(f"FT/{i}.md","w") as f:
         f.write(assistant_response)
     del inputs, res
     torch.cuda.empty_cache()

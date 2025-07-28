@@ -1,7 +1,7 @@
-
 from unsloth import FastVisionModel
-import torch
+from peft import PeftModel
 from datasets import load_dataset
+import torch
 import os
 import gc
 
@@ -71,7 +71,9 @@ model, tokenizer = FastVisionModel.from_pretrained(
 
 model = PeftModel.from_pretrained(model, "jorgemunozl/flowchart2mermaid")
 model = model.merge_and_unload()
-ds = load_dataset("MananSuri27/Flowchart2Mermaid")
+
+ds = load_dataset("sroecker/mermaid-flowchart-transformer-moondream-caption")
+
 messages = [
     {"role": "user", "content": [
         {"type": "image"},
@@ -80,9 +82,9 @@ messages = [
 ]
 input_text = tokenizer.apply_chat_template(messages, add_generation_prompt = True)
 FastVisionModel.for_inference(model)
-for i in range(60):
+for i in range(1,60):
     print(f" -> Image {i}")
-    image = ds["validation"][i]["image"]
+    image = ds["train"][i]["image"]
     inputs = tokenizer(
     image,
     input_text,
