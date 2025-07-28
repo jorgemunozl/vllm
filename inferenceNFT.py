@@ -82,7 +82,9 @@ messages = [
 ]
 input_text = tokenizer.apply_chat_template(messages, add_generation_prompt = True)
 
-for i in range(60):
+total_time = 0
+
+for i in range(20,60):
     print(f" -> Image {i}")
     image = ds["train"][i]["image"]
     inputs = tokenizer(
@@ -93,9 +95,17 @@ for i in range(60):
     ).to("cuda")
     start_event = torch.cuda.Event(enable_timing=True)
     end_event = torch.cuda.Event(enable_timing=True)
-    
+    start_event.record()
     res = model.generate(**inputs, max_new_tokens = 2000,
                    use_cache = False, temperature = 0.1, min_p = 0.1)
+    end_event.record()
+    torch.cuda.synchronize()
+    elapsed_time_ms = start_event.elapsed_time(end_event)
+    total_time += elapsed_time_ms / 1000
+    
+    print(f"\nTotal inference time for 60 images: {total_time:.2f} seconds")
+    print(f"Average inference time per image: {total_time / 60:.2f} seconds")
+
     generated_text = tokenizer.decode(res[0],skip_special_tokens=True)
     if "<|start_header_id|>assistant<|end_header_id|>" in generated_text:
         assistant_response = generated_text.split("<|start_header_id|>assistant<|end_header_id|>")[-1]
@@ -107,8 +117,8 @@ for i in range(60):
     if assistant_response.endswith("<|eot_id|>"):
         assistant_response = assistant_response[:-9].strip()
     print(assistant_response)
-    os.makedirs("FT",exist_ok=True)
-    with open(f"FT/{i}.md","w") as f:
+    os.makedirs("NEWBATCHNFT",exist_ok=True)
+    with open(f"NEWBATCHNFT/{i}.md","w") as f:
         f.write(assistant_response)
     del inputs, res
     torch.cuda.empty_cache()

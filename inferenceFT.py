@@ -73,7 +73,7 @@ model = PeftModel.from_pretrained(model, "jorgemunozl/flowchart2mermaid")
 model = model.merge_and_unload()
 
 ds = load_dataset("sroecker/mermaid-flowchart-transformer-moondream-caption")
-
+total_time=0
 messages = [
     {"role": "user", "content": [
         {"type": "image"},
@@ -91,8 +91,16 @@ for i in range(1,60):
     add_special_tokens = False,
     return_tensors = "pt",
     ).to("cuda")
+    start_event = torch.cuda.Event(enable_timing=True)
+    end_event = torch.cuda.Event(enable_timing=True)
+    start_event.record()
     res = model.generate(**inputs, max_new_tokens = 2000,
                    use_cache = False, temperature = 0.1, min_p = 0.1)
+    end_event.record()
+    torch.cuda.synchronize()
+    elapsed_time_ms = start_event.elapsed_time(end_event)
+    total_time += elapsed_time_ms / 1000
+    print("Elapsed_time: ",elapsed_time_ms / 1000)
     generated_text = tokenizer.decode(res[0],skip_special_tokens=True)
     # Extract only the assistant's response (everything after the last assistant token)
     if "<|start_header_id|>assistant<|end_header_id|>" in generated_text:
@@ -105,8 +113,8 @@ for i in range(1,60):
     if assistant_response.endswith("<|eot_id|>"):
         assistant_response = assistant_response[:-9].strip()
     print(assistant_response)
-    os.makedirs("NFT",exist_ok=True)
-    with open(f"NFT/{i}.md","w") as f:
+    os.makedirs("FTBATCH",exist_ok=True)
+    with open(f"FTBATCH/{i}.md","w") as f:
         f.write(assistant_response)
     del inputs, res
     torch.cuda.empty_cache()
