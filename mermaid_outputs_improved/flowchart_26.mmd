@@ -1,0 +1,35 @@
+```mermaid
+flowchart TD
+A((Start)) --> B[Read n]
+B --> C{Set a to 3?}
+C --> D[Set b to 0]
+D --> E[Set c to 2]
+E --> F{Is n equal to 0?}
+F --> G{Is n equal to 1?}
+G --> H{Is n equal to 2?}
+H --> I[Set sum to 5]
+I --> J[Is n greater than 2?]
+J --> K[Add d to sum]
+K --> L[Update a to b]
+L --> M{Update b to c?}
+M --> N[Update c to c]
+N --> O{Decrement n by 1?}
+O --> P{Return sum?}
+P --> Q((End))
+H --> R[Return 3]
+H --> S[Return 3]
+H --> T[Return 5]
+T --> U((End))
+F --> V[Is n equal to 0?]
+V --> W{Is n equal to 1?}
+W --> X[Is n equal to 2?]
+X --> Y[Set sum to 5]
+Y --> Z{Is n greater than 2?}
+Z --> {Add d to sum?}
+Z --> {Update a to b?}
+Z --> {Update b to c?}
+Z --> {Update c to c?}
+Z --> {Decrement n by 1?}
+Z --> {Return sum?}
+Z --> {((End))?}
+```

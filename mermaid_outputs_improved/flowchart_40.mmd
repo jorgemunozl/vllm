@@ -1,0 +1,11 @@
+```mermaid
+flowchart TD
+A((Start)) --> B{Receive the 'word' that needs to be converted to a vector?}
+B --> C[Initialize an empty list named'vector']
+C --> D{For each character in the 'word'?}
+D -- Yes --> E[Convert the character to an integer using 'char2int' function]
+D -- No --> F[Return the'vector' list]
+E --> G[Append the integer to the'vector' list]
+G --> H((End))
+F --> H
+```

@@ -1,0 +1,13 @@
+```mermaid
+flowchart TD
+A((Start)) --> B[/"Receive three inputs, 'n','min', and'max'"/]
+B --> C{Check if 'n' is less than'min'?}
+C --> D[Return'min']
+C --> E{Check if 'n' is greater than'max'?}
+E --> F[Return'max']
+E --> G
+F --> H((End))
+G --> H
+E --> H
+H --> I[Return 'n']
+```

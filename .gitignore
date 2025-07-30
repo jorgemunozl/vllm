@@ -41,10 +41,13 @@ ipython_config.py
 
 # THIS PROJECT
 *.safetensors
-noFinneTuneOutputs/
-NFT/
 groundT/
 FT/
+mermaid_outputs/
+mermaid_outputs_improved/
+NFT/
+NEWBATCHNFT/
+FTBATCH/
 
 # Environments
 .env
