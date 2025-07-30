@@ -46,8 +46,9 @@ FT/
 mermaid_outputs/
 mermaid_outputs_improved/
 NFT/
-NEWBATCHNFT/
-FTBATCH/
+NEWBATCHNFTLAST/
+FTBATCHLAST/
+
 
 # Environments
 .env

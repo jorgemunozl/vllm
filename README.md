@@ -86,10 +86,18 @@ flowchart TD
 
 ---
 
-## 📦 Model Weights
+## Model Weights
 
-- **LoRA adapters** are available on [Hugging Face](https://huggingface.co/your-username/your-model-repo).
+- **LoRA adapters** are available on [Hugging Face](https://huggingface.co/jorgemunozl/flowchart2mermaid).
 - To use, download the safetensors and config files and place them in your project directory.
+- 
+
+## Data set used
+
+- https://huggingface.co/datasets/rakitha/mermaid-flowchart-transformer
+- https://huggingface.co/datasets/sroecker/mermaid-flowchart-transformer-moondream-caption
+- https://huggingface.co/datasets/MananSuri27/flowchartseg
+- https://huggingface.co/datasets/MananSuri27/Flowchart2Mermaid
 
 ---
 
