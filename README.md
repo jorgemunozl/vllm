@@ -1,22 +1,9 @@
----
-model:
-  model_name: "meta-llama/Llama-2-7b-hf"
-  max_seq_length: 2048
-  use_4bit: true
-  use_lora: true
-  lora_r: 16
-  lora_alpha: 32
-  lora_dropout: 0.1
-training:
-  dataset_name: "alpaca"
-  batch_size: 4
-  learning_rate: 2.0e-4
-  num_epochs: 3
----
-
 # Flowchart-to-Mermaid Transformer
 
-This project converts flowchart images into [Mermaid](https://mermaid-js.github.io/) code using a vision-language model (Llama 3.2 Vision + LoRA adapters). It supports both fine-tuned (FT) and non-fine-tuned (NFT) model evaluation.
+This project converts flowchart images into [Mermaid](https://mermaid-js.github.io/) code using a vision-language model 
+[Llama 3.2 Vision](https://huggingface.co/unsloth/Llama-3.2-11B-Vision-Instruct)
+ + (QLoRA adapters)[]
+). It supports both fine-tuned (FT) and non-fine-tuned (NFT) model evaluation.
 
 
 ## 🚀 Quick Start
@@ -41,7 +28,11 @@ This project converts flowchart images into [Mermaid](https://mermaid-js.github.
 
 ---
 
-## 📊 Model Performance
+## 📊 Benchmarks
+
+The fine-tune model was tested on ussing differents algorithms of string comparation.
+The question relies is how the most popular LLM's are tested on the well known benchmarks!
+
 
 | Metric                | NFT Model | FT Model | Improved Generator |
 |-----------------------|-----------|----------|-------------------|
@@ -59,10 +50,10 @@ This project converts flowchart images into [Mermaid](https://mermaid-js.github.
 ## 🖼️ Example Output
 
 **Input:**
-![example](example_image.png)
+![any](.anypng)
 
 **Generated Mermaid:**
-```
+```mermaid
 flowchart TD
     A((Start)) --> B["Load Application"]
     B --> C[/"User Input Required"/]
@@ -86,6 +77,10 @@ flowchart TD
 
 ---
 
+## Base Model
+
+
+
 ## Model Weights
 
 - **LoRA adapters** are available on [Hugging Face](https://huggingface.co/jorgemunozl/flowchart2mermaid).
@@ -99,32 +94,22 @@ flowchart TD
 - https://huggingface.co/datasets/MananSuri27/flowchartseg
 - https://huggingface.co/datasets/MananSuri27/Flowchart2Mermaid
 
+All togheter forms more than 100000 flowcharts, using Data Augmentation we have that.
+
 ---
+
+## Training Process
+
+- Using the state-of-the-art QLora 
+
 
 ## 📑 Citation
 
 If you use this project, please cite:
 ```
 @misc{flowchart2mermaid2025,
-  author = {Your Name},
+  author = {Munoz Jorge},
   title = {Flowchart-to-Mermaid Transformer},
   year = {2025},
-  url = {https://github.com/your-username/your-repo}
+  url = {https://github.com/jorgemunozl/vllm}
 }
-```
-  output_dir: "./results"
-  save_strategy: "epoch"
-  logging_steps: 1
-
-inference:
-  max_new_tokens: 256
-  temperature: 0.7
-  do_sample: true
-  top_p: 0.9
-  top_k: 50
----
-
-
-## VLLMS TRAINED ON MERMAID
-
-Use -> MananSuri27/Flowchart2Mermaid

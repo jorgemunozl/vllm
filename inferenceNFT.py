@@ -14,7 +14,7 @@ model, tokenizer = FastVisionModel.from_pretrained(
     use_gradient_checkpointing = "unsloth", # True or "unsloth" for long context
 )
 
-model = FastVisionModel.get_peft_model(
+model = FastVisionModel.get_peft_model( # It doesn't have sense add the adapters here!
     model,
     finetune_vision_layers     = True, # False if not finetuning vision layers
     finetune_language_layers   = True, # False if not finetuning language layers
