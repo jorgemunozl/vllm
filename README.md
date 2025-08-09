@@ -1,115 +1,61 @@
-# Flowchart-to-Mermaid Transformer
+# Image2Mermaid
 
-This project converts flowchart images into [Mermaid](https://mermaid-js.github.io/) code using a vision-language model 
-[Llama 3.2 Vision](https://huggingface.co/unsloth/Llama-3.2-11B-Vision-Instruct)
- + (QLoRA adapters)[]
-). It supports both fine-tuned (FT) and non-fine-tuned (NFT) model evaluation.
+<a target="_blank" href="https://cookiecutter-data-science.drivendata.org/">
+    <img src="https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter" />
+</a>
 
+Fine-model a large vision model to create mermaid code
 
-## 🚀 Quick Start
+## Project Organization
 
-1. **Install dependencies:**
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-2. **Run inference:**
-    ```bash
-    python inferenceNFT.py
-    # or for FT model
-    python inferenceFT.py
-    ```
-
-3. **Evaluate and compare:**
-    ```bash
-    python metric.py
-    python plot_comparison.py
-    ```
-
----
-
-## 📊 Benchmarks
-
-The fine-tune model was tested on ussing differents algorithms of string comparation.
-The question relies is how the most popular LLM's are tested on the well known benchmarks!
-
-
-| Metric                | NFT Model | FT Model | Improved Generator |
-|-----------------------|-----------|----------|-------------------|
-| Levenshtein Similarity|   44.3%   |  63.6%   |      70.1%        |
-| Jaccard Similarity    |   52.7%   |  68.2%   |      74.5%        |
-| Cosine Similarity     |   60.1%   |  75.3%   |      80.2%        |
-| Sequence Matcher      |   47.8%   |  66.7%   |      72.9%        |
-| Hamming Similarity    |   10.2%   |  15.4%   |      18.7%        |
-| Jaro Similarity       |   55.6%   |  70.8%   |      77.0%        |
-
-*These are average scores over the test set. See `metric.py` for details.*
-
----
-
-## 🖼️ Example Output
-
-**Input:**
-![any](.anypng)
-
-**Generated Mermaid:**
-```mermaid
-flowchart TD
-    A((Start)) --> B["Load Application"]
-    B --> C[/"User Input Required"/]
-    C --> D{"Valid Input?"}
-    D -->|Yes| E["Process Request"]
-    D -->|No| F["Show Error Message"]
-    E --> G[/"Display Results"/]
-    F --> C
-    G --> H((End))
+```
+├── LICENSE            <- Open-source license if one is chosen
+├── Makefile           <- Makefile with convenience commands like `make data` or `make train`
+├── README.md          <- The top-level README for developers using this project.
+├── data
+│   ├── external       <- Data from third party sources.
+│   ├── interim        <- Intermediate data that has been transformed.
+│   ├── processed      <- The final, canonical data sets for modeling.
+│   └── raw            <- The original, immutable data dump.
+│
+├── docs               <- A default mkdocs project; see www.mkdocs.org for details
+│
+├── models             <- Trained and serialized models, model predictions, or model summaries
+│
+├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
+│                         the creator's initials, and a short `-` delimited description, e.g.
+│                         `1.0-jqp-initial-data-exploration`.
+│
+├── pyproject.toml     <- Project configuration file with package metadata for 
+│                         image2mermaid and configuration for tools like black
+│
+├── references         <- Data dictionaries, manuals, and all other explanatory materials.
+│
+├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
+│   └── figures        <- Generated graphics and figures to be used in reporting
+│
+├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
+│                         generated with `pip freeze > requirements.txt`
+│
+├── setup.cfg          <- Configuration file for flake8
+│
+└── image2mermaid   <- Source code for use in this project.
+    │
+    ├── __init__.py             <- Makes image2mermaid a Python module
+    │
+    ├── config.py               <- Store useful variables and configuration
+    │
+    ├── dataset.py              <- Scripts to download or generate data
+    │
+    ├── features.py             <- Code to create features for modeling
+    │
+    ├── modeling                
+    │   ├── __init__.py 
+    │   ├── predict.py          <- Code to run model inference with trained models          
+    │   └── train.py            <- Code to train models
+    │
+    └── plots.py                <- Code to create visualizations
 ```
 
----
+--------
 
-## 🛠️ Project Structure
-
-- `inferenceNFT.py` / `inferenceFT.py` — Run inference with NFT/FT models
-- `metric.py` — String similarity metrics
-- `plot_comparison.py` — Visualize and compare results
-- `utilsFunctions.py` — Utilities for cleaning and formatting
-- `NFT/`, `FT/`, `groundT/` — Output and reference directories
-
----
-
-## Base Model
-
-
-
-## Model Weights
-
-- **LoRA adapters** are available on [Hugging Face](https://huggingface.co/jorgemunozl/flowchart2mermaid).
-- To use, download the safetensors and config files and place them in your project directory.
-- 
-
-## Data set used
-
-- https://huggingface.co/datasets/rakitha/mermaid-flowchart-transformer
-- https://huggingface.co/datasets/sroecker/mermaid-flowchart-transformer-moondream-caption
-- https://huggingface.co/datasets/MananSuri27/flowchartseg
-- https://huggingface.co/datasets/MananSuri27/Flowchart2Mermaid
-
-All togheter forms more than 100000 flowcharts, using Data Augmentation we have that.
-
----
-
-## Training Process
-
-- Using the state-of-the-art QLora 
-
-
-## 📑 Citation
-
-If you use this project, please cite:
-```
-@misc{flowchart2mermaid2025,
-  author = {Munoz Jorge},
-  title = {Flowchart-to-Mermaid Transformer},
-  year = {2025},
-  url = {https://github.com/jorgemunozl/vllm}
-}
